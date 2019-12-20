@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8" />
+		
+		<title>E Convert Plus: Results</title>
+
+		<link rel="shortcut icon" type="image/png" href="images/antioxidant-berries-bilberry-988870.jpg"/>
+
+		<link rel="stylesheet" type="text/css" href="css/energyconverter.css" />
+
+		<script type="text/javascript" src="util/ConvertionDirection.js"></script>
+		
+		<script type="text/javascript" src="util/Constraints.js"></script>
+
+		<script type="text/javascript">
+			
+			function parseUserInput() {
+				var userInput = {};
+				location.search.replace("?", "").split(/&/).forEach(function(param) {
+					var nameValuePair = param.split(/=/);
+					userInput[nameValuePair[0]] = nameValuePair[1];
+				});
+				return userInput;
+			}
+			
+			function convert(userInput) {
+				var resultField = document.getElementById("resultField");
+				var amount = Number(userInput.amount);
+
+				if(isNaN(amount) || amount < Constraints.MIN_VALUE) {
+					resultField.innerHTML = "Ivalid value, must be greater than or equal to " + Constraints.MIN_VALUE + ".";
+					return;
+				}
+				
+				switch (userInput.direction) {
+				case ConversionDirection.CALORIES_TO_JOULES.value:
+					var result = Math.round(amount * 4.184 * 1000) / 1000;
+					var direction = ConversionDirection.CALORIES_TO_JOULES;
+					break;
+				case ConversionDirection.JOULES_TO_CALORIES.value:
+					var result = Math.round(amount / 4.184 * 1000) / 1000;
+					var direction = ConversionDirection.JOULES_TO_CALORIES;
+					break;
+				default:
+					var validDirections = [];
+					for (var key in ConversionDirection) {
+						validDirections.push(ConversionDirection[key].value);
+					}
+					resultField.innerHTML = "Ivalid convertion direction, must one of " + JSON.stringify(validDirections) + ".";
+				}
+				
+				resultField.innerHTML = amount + " " + direction.baseUnit + " = " + result + " " + direction.destinationUnit;
+				
+			}
+		
+			function init() {
+				var userInput = parseUserInput();
+				convert(userInput);
+			}
+		</script>
+	</head>
+	<body onload="init()" class="frame">
+		<h1>E Convert Plus</h1>
+		<h2>Results</h2>
+		<p><span id="resultField" class="emphasis"></span></p>
+		<p><a href="index.html">Back</a></p>
+	</body>
+</html>

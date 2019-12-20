@@ -1,0 +1,39 @@
+html {
+	height: 100%;
+}
+
+body {
+    background-image: url("../images/antioxidant-berries-bilberry-988870.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+h1,h2,p.instructions,span.control,span.emphasis,a {
+	color: white;
+}
+
+p.instructions {
+	font-style: italic;
+}
+
+span.control {
+	font-weight: bold;
+	font-style: normal;
+}
+
+span.emphasis {
+	font-weight: bold;
+	font-style: normal;
+}
+
+span.error {
+	color: crimson;
+	font-weight: bold;
+}
+
+.amountField {
+	text-align: right;
+	margin-right: 5px;
+}
