@@ -30,7 +30,7 @@
 				var amount = Number(userInput.amount);
 
 				if(isNaN(amount) || amount < Constraints.MIN_VALUE) {
-					resultField.innerHTML = "Ivalid value, must be greater than or equal to " + Constraints.MIN_VALUE + ".";
+					resultField.textContent = "Ivalid value, must be greater than or equal to " + Constraints.MIN_VALUE + ".";
 					return;
 				}
 				
@@ -48,10 +48,10 @@
 					for (var key in ConversionDirection) {
 						validDirections.push(ConversionDirection[key].value);
 					}
-					resultField.innerHTML = "Ivalid convertion direction, must one of " + JSON.stringify(validDirections) + ".";
+					resultField.textContent = "Ivalid convertion direction, must one of " + JSON.stringify(validDirections) + ".";
 				}
 				
-				resultField.innerHTML = amount + " " + direction.baseUnit + " = " + result + " " + direction.destinationUnit;
+				resultField.textContent = amount + " " + direction.baseUnit + " = " + result + " " + direction.destinationUnit;
 				
 			}
 		
