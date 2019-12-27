@@ -22,13 +22,13 @@
 				
 				switch (direction) {
 				case ConversionDirection.CALORIES_TO_JOULES.value:
-					document.getElementById("unit").innerHTML = ConversionDirection.CALORIES_TO_JOULES.baseUnit;
+					document.getElementById("unit").textContent = ConversionDirection.CALORIES_TO_JOULES.baseUnit;
 					break;
 				case ConversionDirection.JOULES_TO_CALORIES.value:
-					document.getElementById("unit").innerHTML = ConversionDirection.JOULES_TO_CALORIES.baseUnit;
+					document.getElementById("unit").textContent = ConversionDirection.JOULES_TO_CALORIES.baseUnit;
 					break;
 				default:
-					document.getElementById("unit").innerHTML = "";
+					document.getElementById("unit").textContent = "";
 					break;
 				}
 			}
