@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8" />
+
+		<title>Energy Converter</title>
+		
+		<link rel="shortcut icon" type="image/png" href="images/antioxidant-berries-bilberry-988870.jpg"/>
+
+		<link rel="stylesheet" type="text/css" href="css/energyconverter.css" />
+
+		<script type="text/javascript" src="util/ConvertionDirection.js"></script>
+		
+		<script type="text/javascript" src="util/Constraints.js"></script>
+
+		<script type="text/javascript">
+			function setUnit() {
+				var direction = document.getElementById("directionsList").selectedOptions[0].value;
+				
+				localStorage.setItem("selectedDirection", direction)
+				
+				switch (direction) {
+				case ConversionDirection.CALORIES_TO_JOULES.value:
+					document.getElementById("unit").textContent = ConversionDirection.CALORIES_TO_JOULES.baseUnit;
+					break;
+				case ConversionDirection.JOULES_TO_CALORIES.value:
+					document.getElementById("unit").textContent = ConversionDirection.JOULES_TO_CALORIES.baseUnit;
+					break;
+				default:
+					document.getElementById("unit").textContent = "";
+					break;
+				}
+			}
+		
+			function fillDirectionsList() {
+				var list = document.getElementById("directionsList");
+				for (var key in ConversionDirection) {
+					var value = ConversionDirection[key].value;
+					var text = ConversionDirection[key].text;
+		
+					var option = document.createElement("option");
+					option.value = value;
+					option.text = text;
+					if (value === localStorage.getItem("selectedDirection") || value === ConversionDirection.CALORIES_TO_JOULES.value) {
+						option.selected = "selected";
+					}
+		
+					list.appendChild(option);
+				}
+			}
+		
+			function fillAmountInput() {
+				var input = document.getElementById("amountInput");
+				input.value = localStorage.getItem("providedAmount") || "";
+			}
+		
+			function setMinAmount() {
+				var input = document.getElementById("amountInput");
+				input.min = Constraints.MIN_VALUE;
+			}
+		
+			function init() {
+				fillDirectionsList();
+				fillAmountInput();
+				setMinAmount();
+				setUnit();
+			}
+		</script>
+	</head>
+	<body onload="init()" class="frame">
+		<h1>Energy Converter</h1>
+		<h2>Welcome!</h2>
+		<p class="instructions">
+			Choose direction for the energy conversion, give energy value, and hit
+			<span class="control">Convert</span>.
+		</p>
+		<form action="result.html">
+			<p>
+				<select id="directionsList" name="direction" onchange="setUnit()">
+				</select>
+			</p>
+			<p>
+				<input id="amountInput" class="amountField" name="amount" type="number" step="any" /><span id="unit" class="emphasis"></span>
+			</p>
+			<p>
+				<input type="submit" value="Convert" />
+			</p>
+		</form>
+	</body>
+</html>
